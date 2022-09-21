@@ -30,7 +30,16 @@ def main():
 
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                print(img.list_all())
+                
+                
+            print('What would you like to view ?')
+            options = ['Copywrite Info', 'Date and time Info', 'Image description']
+            terminal_menu = TerminalMenu(options)
+            menu_entry_index = terminal_menu.show()
+            if options == 0:
+                exif.Image
+                print()
+                
                 # ask user what they want to view
                 # Get the input
                 # use input to get the key
@@ -45,14 +54,8 @@ def main():
             options = ['Add Metadata', 'Remove Metadata', 'exit']
             terminal_menu = TerminalMenu(options)
             
-            menu_entry_index = terminal_menu.show()
-            while menu_entry_index != 2:
-                if menu_entry_index == 0:
-                    print('What Data would you like to add?')
-                elif menu_entry_index == 1: 
-                    print('What would you like to Remove?')
-            print('What would you like to do ?')
-            menu_entry_index = terminal_menu.show()
+           
+             
         
         
 
