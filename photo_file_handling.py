@@ -1,6 +1,8 @@
 from simple_term_menu import TerminalMenu 
 from exif import Image
 
+folder_path = 'sample_images'
+
 
 print('Hi, Welcome to the Photo Organising Application !')
 
@@ -14,6 +16,7 @@ def main():
             print('Perfect lets start editing!')
         elif menu_entry_index == 1: 
             print('Perfect lets continue editing!')
+        
         print('What would you like to do ?')
         options = ['Add Metadata', 'Remove Metadata', 'exit']
         terminal_menu = TerminalMenu(options)
