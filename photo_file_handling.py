@@ -11,6 +11,7 @@ from exif import Image
 # print(img_filename)
 # print(img_path)
 # print(img.list_all())
+ 
 
 
 print('Hi, Welcome to the Photo Organising Application !')
@@ -25,45 +26,47 @@ def main():
             print("Perfect lets check the photo's metadata")
         
             folder_path = 'Image'
-            img_filename = input('Type the exact name of the image including .jpg ') # input from user
+            img_filename = input('Type the exact name of the image including the file type - .jpg, .png... ') # input from user
             img_path = f'{folder_path}/{img_filename}'
+            print('What would you like to view ?')
 
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
+                options2 = ['Copywrite Info', 'Date and time Info', 'What device used']
+                terminal_menu = TerminalMenu(options2)
+                menu_entry_index = terminal_menu.show()
+                if menu_entry_index == 0:
+                    print(f'Copyright: {img.get("copyright")}')
+                    
+                elif menu_entry_index == 1:
+                    print(f'Date and time: {img.get("datetime")}')
                 
+                else:
+                    print(f'Device Used: {img.get("model")}')    
+            
                 
-            print('What would you like to view ?')
-            options = ['Copywrite Info', 'Date and time Info', 'Image description']
-            terminal_menu = TerminalMenu(options)
-            menu_entry_index = terminal_menu.show()
-            if options == 0:
-                exif.Image
-                print()
+                   
                 
                 # ask user what they want to view
                 # Get the input
                 # use input to get the key
                 # then print value
-
-
-
-
         elif menu_entry_index == 1: 
             print("Perfect lets update the photo's metadata")
             print('What would you like to do ?')
             options = ['Add Metadata', 'Remove Metadata', 'exit']
             terminal_menu = TerminalMenu(options)
+            menu_entry_index = terminal_menu.show()
+           
             
            
              
-        
-        
+        else: 
+            print('See you next time !')
 
 
-        
-    
 
-    print('See you next time !')
+
 
 if __name__ == '__main__':
     main()
