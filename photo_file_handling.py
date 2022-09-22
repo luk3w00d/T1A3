@@ -32,13 +32,13 @@ def main():
 
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                options2 = ['Copywrite Info', 'Date and time Info', 'What device used']
-                terminal_menu = TerminalMenu(options2)
-                menu_entry_index = terminal_menu.show()
-                if menu_entry_index == 0:
+                view_options = ['Copywrite Info', 'Date and time Info', 'What device used']
+                terminal_menu = TerminalMenu(view_options)
+                view_index = terminal_menu.show()
+                if view_index == 0:
                     print(f'Copyright: {img.get("copyright")}')
                     
-                elif menu_entry_index == 1:
+                elif view_index == 1:
                     print(f'Date and time: {img.get("datetime")}')
                 
                 else:
