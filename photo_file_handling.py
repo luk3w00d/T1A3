@@ -1,7 +1,11 @@
 from simple_term_menu import TerminalMenu 
 from exif import Image
 
-
+def edit_metadata(img, img_path, name):
+    img.set(name, input(f'Enter new {name} info - '))
+    with open (img_path, 'wb') as img_file:
+        img_file.write(img.get_file())
+    print(f'{name} - After: {img.get(name)}')
 
 # img.artist = 'bob the builder'
 # with open(f'{folder_path}/{img_filename}', 'wb') as new_image_file:
@@ -33,7 +37,7 @@ def main():
             print('What would you like to view ?')
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                view = ['Copywrite Info', 'Date and time Info', 'What device used', 'Back to main menu']
+                view = ['Copywrite Info', 'Date and time Info', 'What device used', 'Artist', 'If a flash was used', 'Back to main menu']
                 terminal_menu = TerminalMenu(view)
                 view_index = terminal_menu.show()
                 if view_index == 0:
@@ -43,7 +47,13 @@ def main():
                     print(f'Date and time: {img.get("datetime")}')
                 
                 elif view_index == 2:
-                    print(f'Device Used: {img.get("model")}')    
+                    print(f'Device Used: {img.get("model")}')   
+
+                elif view_index == 3:
+                    print(f'Artist: {img.get("artist")}')
+
+                elif view_index == 4:
+                    print(f'Flash Info: {img.get("flash")}')        
                                                
         elif menu_entry_index == 1: 
             print("Perfect lets update the photo's metadata")
@@ -59,29 +69,34 @@ def main():
                         img_filename = "image1.JPG"
                         # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                         img_path = f'{folder_path}/{img_filename}'
-                        with open(img_path, 'a+b') as img_file:
+                        img = None
+                        with open(img_path, 'rb') as img_file:
+                            img = Image(img_file)
+                            img_file.close()
+
+                        terminal_menu = TerminalMenu(metadata)
+                        metadata_index = terminal_menu.show()
+
+                        if metadata_index == 0:
+                            edit_metadata(img, img_path, 'copyright')
+                        elif metadata_index == 1:
+                            edit_metadata(img, img_path, 'artist')
+                        else:
+                            edit_metadata(img, img_path, 'flash')
+                elif edit_index == 1:
+                        print('What would you like to remove ?')
+                        metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
+                        folder_path = 'Image'
+                        img_filename = "image1.JPG"
+                        # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
+                        img_path = f'{folder_path}/{img_filename}'
+                        with open(img_path, 'rb') as img_file:
                             img = Image(img_file)
                             terminal_menu = TerminalMenu(metadata)
                             metadata_index = terminal_menu.show()
                             if metadata_index == 0:
-                                img.copyright = input('Enter new copyright info - ')
-                                print(img.list_all())
-                                img_file.write(img.get_file())
-                                print(f'copyright - After: {img.get("copyright")}')
-                # elif edit_index == 1:
-                #         print('What would you like to remove ?')
-                #         metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
-                #         folder_path = 'Image'
-                #         img_filename = "image1.JPG"
-                #         # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
-                #         img_path = f'{folder_path}/{img_filename}'
-                #         with open(img_path, 'rb') as img_file:
-                #             img = Image(img_file)
-                #             terminal_menu = TerminalMenu(metadata)
-                #             metadata_index = terminal_menu.show()
-                #             if metadata_index == 0:
-                #                 img.delete('copyright')
-                #             print(f'copyright - After: {img.get("copyright")}')
+                                img.delete('copyright')
+                            print(f'copyright - After: {img.get("copyright")}')
                                 
                 
                                 
