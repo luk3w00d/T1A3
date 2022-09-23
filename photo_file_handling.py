@@ -21,7 +21,7 @@ def edit_metadata(img, img_path, name):
 # print(img_path)
 # print(img.list_all())
  
-
+#
 
 print('Hi, Welcome to the Photo Organising Application !')
 
@@ -39,7 +39,7 @@ def main():
             print('What would you like to view ?')
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                view = ['Copywrite Info', 'Date and time Info', 'What device used', 'Artist', 'If a flash was used', 'Back to main menu']
+                view = ['Copywrite Info', 'Date and time Info', 'What device used', 'Artist', 'Device make', 'Back to main menu']
                 terminal_menu = TerminalMenu(view)
                 view_index = terminal_menu.show()
                 if view_index == 0:
@@ -55,7 +55,7 @@ def main():
                     print(f'Artist: {img.get("artist")}')
 
                 elif view_index == 4:
-                    print(f'Flash Info: {img.get("flash")}')        
+                    print(f'Make: {img.get("make")}')        
                                                
         elif menu_entry_index == 1: 
             print("Perfect lets update the photo's metadata")
@@ -66,7 +66,7 @@ def main():
                 edit_index = terminal_menu.show()
                 if edit_index == 0:
                         print('What would you like to add ?')
-                        metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
+                        metadata = ['copyright info','Artist', 'Device make', 'Back to main menu']
                         folder_path = 'Image'
                         img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                         img_path = f'{folder_path}/{img_filename}'
@@ -80,12 +80,12 @@ def main():
                             edit_metadata(img, img_path, 'copyright')
                         elif metadata_index == 1:
                             edit_metadata(img, img_path, 'artist')
-                        else:
-                            edit_metadata(img, img_path, 'flash')
+                        elif metadata_index == 2:
+                            edit_metadata(img, img_path, 'make')
 
                 elif edit_index == 1:
                             print('What would you like to remove ?')
-                            metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
+                            metadata = ['copyright info','Artist', 'make', 'Back to main menu']
                             folder_path = 'Image'
                             img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                             img_path = f'{folder_path}/{img_filename}'
@@ -97,7 +97,7 @@ def main():
                             metadata_index = terminal_menu.show()
                             if metadata_index == 0:
                                 with open(img_path, 'wb') as img_file:
-                                    img.delete('copyright')
+                                    img.delete('copyright')             # Make into function
                                     img_file.write(img.get_file())
                                     img_file.close()
 
@@ -111,11 +111,11 @@ def main():
                                 print(f'Artist - After: {img.get("artist")}')
                             elif metadata_index == 2:
                                 with open(img_path, 'wb') as img_file:
-                                    img.delete('flash')
+                                    img.delete('make')
                                     img_file.write(img.get_file())
                                     img_file.close()
 
-                                print(f'Flash - After: {img.get("flash")}')
+                                print(f'Make - After: {img.get("make")}')
                             
         
                             
@@ -130,7 +130,7 @@ def main():
                         
                         
                     
-               # name of photo to be error handling             
+               # name of photo to be error handled            
                          
                 
            
