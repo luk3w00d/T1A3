@@ -59,15 +59,15 @@ def main():
                         img_filename = "image1.JPG"
                         # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                         img_path = f'{folder_path}/{img_filename}'
-                        with open(img_path, 'rb') as img_file:
+                        with open(img_path, 'a+b') as img_file:
                             img = Image(img_file)
                             terminal_menu = TerminalMenu(metadata)
                             metadata_index = terminal_menu.show()
                             if metadata_index == 0:
                                 img.copyright = input('Enter new copyright info - ')
-                                with open(f'{folder_path}{img_filename}', 'wb') as img_filename:
-                                    img_filename.write(img.get_file())
-                            print(f'copyright - After: {img.get("copyright")}')
+                                print(img.list_all())
+                                img_file.write(img.get_file())
+                                print(f'copyright - After: {img.get("copyright")}')
                 # elif edit_index == 1:
                 #         print('What would you like to remove ?')
                 #         metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
