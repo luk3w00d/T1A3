@@ -7,6 +7,10 @@ def edit_metadata(img, img_path, name):
         img_file.write(img.get_file())
     print(f'{name} - After: {img.get(name)}')
 
+
+        
+        
+
 # img.artist = 'bob the builder'
 # with open(f'{folder_path}/{img_filename}', 'wb') as new_image_file:
 #     new_image_file.write(img.get_file())
@@ -30,10 +34,8 @@ def main():
         menu_entry_index = terminal_menu.show()
         if menu_entry_index == 0:
             print("Perfect lets check the photo's metadata")
-            folder_path = 'Image'
-            img_filename = "image1.JPG"
-            # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
-            img_path = f'{folder_path}/{img_filename}'
+            img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
+            img_path = f'Image/{img_filename}'
             print('What would you like to view ?')
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
@@ -66,48 +68,69 @@ def main():
                         print('What would you like to add ?')
                         metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
                         folder_path = 'Image'
-                        img_filename = "image1.JPG"
-                        # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
+                        img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                         img_path = f'{folder_path}/{img_filename}'
                         img = None
                         with open(img_path, 'rb') as img_file:
                             img = Image(img_file)
                             img_file.close()
-
                         terminal_menu = TerminalMenu(metadata)
                         metadata_index = terminal_menu.show()
-
                         if metadata_index == 0:
                             edit_metadata(img, img_path, 'copyright')
                         elif metadata_index == 1:
                             edit_metadata(img, img_path, 'artist')
                         else:
                             edit_metadata(img, img_path, 'flash')
+
                 elif edit_index == 1:
-                        print('What would you like to remove ?')
-                        metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
-                        folder_path = 'Image'
-                        img_filename = "image1.JPG"
-                        # img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
-                        img_path = f'{folder_path}/{img_filename}'
-                        with open(img_path, 'rb') as img_file:
-                            img = Image(img_file)
+                            print('What would you like to remove ?')
+                            metadata = ['copyright info','Artist', 'If a flash was used' 'Back to main menu']
+                            folder_path = 'Image'
+                            img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
+                            img_path = f'{folder_path}/{img_filename}'
+                            img = None
+                            with open(img_path, 'rb') as img_file:
+                                img = Image(img_file)
+                                img_file.close()
                             terminal_menu = TerminalMenu(metadata)
                             metadata_index = terminal_menu.show()
                             if metadata_index == 0:
-                                img.delete('copyright')
-                            print(f'copyright - After: {img.get("copyright")}')
-                                
-                
-                                
+                                with open(img_path, 'wb') as img_file:
+                                    img.delete('copyright')
+                                    img_file.write(img.get_file())
+                                    img_file.close()
 
+                                print(f'copyright - After: {img.get("copyright")}')
+                            elif metadata_index == 1:
+                                with open(img_path, 'wb') as img_file:
+                                    img.delete('artist')
+                                    img_file.write(img.get_file())
+                                    img_file.close()
+
+                                print(f'Artist - After: {img.get("artist")}')
+                            elif metadata_index == 2:
+                                with open(img_path, 'wb') as img_file:
+                                    img.delete('flash')
+                                    img_file.write(img.get_file())
+                                    img_file.close()
+
+                                print(f'Flash - After: {img.get("flash")}')
+                            
+        
+                            
         else: 
             print('See you next time !')
                    
+                                    
+            
+                
+                                
+
                         
                         
                     
-                            
+               # name of photo to be error handling             
                          
                 
            
