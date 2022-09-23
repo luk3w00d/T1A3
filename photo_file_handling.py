@@ -1,28 +1,5 @@
 from simple_term_menu import TerminalMenu 
-from exif import Image
-
-def edit_metadata(img, img_path, name):
-    img.set(name, input(f'Enter new {name} info - '))
-    with open (img_path, 'wb') as img_file:
-        img_file.write(img.get_file())
-    print(f'{name} - After: {img.get(name)}')
-
-
-        
-        
-
-# img.artist = 'bob the builder'
-# with open(f'{folder_path}/{img_filename}', 'wb') as new_image_file:
-#     new_image_file.write(img.get_file())
-
-# print(img.has_exif)
-# print(folder_path)
-# print(img_filename)
-# print(img_path)
-# print(img.list_all())
- 
-#
-
+from functions import view_metadata, edit_metadata, Image
 print('Hi, Welcome to the Photo Organising Application !')
 
 def main():
@@ -39,24 +16,19 @@ def main():
             print('What would you like to view ?')
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                view = ['Copywrite Info', 'Date and time Info', 'What device used', 'Artist', 'Device make', 'Back to main menu']
+                view = ['Copywrite Info', 'Date and time Info', 'What device model used', 'Artist', 'Device make', 'Back to main menu']
                 terminal_menu = TerminalMenu(view)
                 view_index = terminal_menu.show()
                 if view_index == 0:
-                    print(f'Copyright: {img.get("copyright")}')
-                    
+                    view_metadata(img, img_path, 'copyright')
                 elif view_index == 1:
-                    print(f'Date and time: {img.get("datetime")}')
-                
+                    view_metadata(img, img_path, 'datetime')
                 elif view_index == 2:
-                    print(f'Device Used: {img.get("model")}')   
-
+                    view_metadata(img, img_path, 'model')  
                 elif view_index == 3:
-                    print(f'Artist: {img.get("artist")}')
-
+                    view_metadata(img, img_path, 'artist')
                 elif view_index == 4:
-                    print(f'Make: {img.get("make")}')        
-                                               
+                    view_metadata(img, img_path, 'make')       
         elif menu_entry_index == 1: 
             print("Perfect lets update the photo's metadata")
             edit_index = -1
