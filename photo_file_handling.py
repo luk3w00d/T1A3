@@ -1,5 +1,5 @@
 from simple_term_menu import TerminalMenu 
-from functions import view_metadata, edit_metadata, Image
+from functions import view_metadata, edit_metadata, Image, remove_metadata
 
 print('Hi, Welcome to the Photo Organising Application !')
 
@@ -13,6 +13,7 @@ def main():
             'Exit']
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
+        
         if menu_entry_index == 0:
             print("Perfect lets check the photo's metadata")
             img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
@@ -25,7 +26,8 @@ def main():
                 'What device model used', 
                 'Artist', 
                 'Device make', 
-                'Back to main menu']
+                'Back to main menu'
+                ]
                 terminal_menu = TerminalMenu(view)
                 view_index = terminal_menu.show()
                 if view_index == 0:
@@ -36,21 +38,31 @@ def main():
                     view_metadata(img, img_path, 'model')  
                 elif view_index == 3:
                     view_metadata(img, img_path, 'artist')
-                elif view_index == 4:
-                    view_metadata(img, img_path, 'make')       
+                else:
+                        view_metadata(img, img_path, 'make')       
+        
         elif menu_entry_index == 1: 
             print("Perfect lets update the photo's metadata")
             edit_index = -1
             while edit_index != 2:
-                edit = ['Add Metadata', 'Remove Metadata', 'Back to main menu']
+                edit = [
+                'Add Metadata', 
+                'Remove Metadata', 
+                'Back to main menu'
+                ]
                 terminal_menu = TerminalMenu(edit)
                 edit_index = terminal_menu.show()
                 if edit_index == 0:
                         print('What would you like to add ?')
-                        metadata = ['copyright info','Artist', 'Device make', 'Back to main menu']
+                        metadata = [
+                            'copyright info',
+                            'Artist', 
+                            'Device make', 
+                            'Back to main menu'
+                            ]
                         folder_path = 'Image'
-                        img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
-                        img_path = f'{folder_path}/{img_filename}'
+                        img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') 
+                        img_path = f'{folder_path}/{img_filename}'        # ^ input from user ^
                         img = None
                         with open(img_path, 'rb') as img_file:
                             img = Image(img_file)
@@ -73,7 +85,7 @@ def main():
                                 'Back to main menu'
                                 ]
                             folder_path = 'Image'
-                            img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
+                            img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') 
                             img_path = f'{folder_path}/{img_filename}'
                             img = None
                             with open(img_path, 'rb') as img_file:
@@ -82,49 +94,12 @@ def main():
                             terminal_menu = TerminalMenu(metadata)
                             metadata_index = terminal_menu.show()
                             if metadata_index == 0:
-                                with open(img_path, 'wb') as img_file:
-                                    img.delete('copyright')             # Make into function
-                                    img_file.write(img.get_file())
-                                    img_file.close()
-
-                                print(f'copyright - After: {img.get("copyright")}')
+                                remove_metadata(img, img_path, 'copyright')
                             elif metadata_index == 1:
-                                with open(img_path, 'wb') as img_file:
-                                    img.delete('artist')
-                                    img_file.write(img.get_file())
-                                    img_file.close()
-
-                                print(f'Artist - After: {img.get("artist")}')
+                                remove_metadata(img, img_path, 'artist')
                             elif metadata_index == 2:
-                                with open(img_path, 'wb') as img_file:
-                                    img.delete('make')
-                                    img_file.write(img.get_file())
-                                    img_file.close()
-
-                                print(f'Make - After: {img.get("make")}')
-                            
-        
-                            
+                                remove_metadata(img, img_path, 'make')
         else: 
-            print('See you next time !')
-                   
-                                    
-            
-                
-                                
-
-                        
-                        
-                    
-               # name of photo to be error handled            
-                         
-                
-           
-             
-
-
-
-
-
+            print('See you next time !')  # name of photo to be error handled  
 if __name__ == '__main__':
     main()

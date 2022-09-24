@@ -10,4 +10,10 @@ def edit_metadata(img, img_path, name):
     with open (img_path, 'wb') as img_file:
         img_file.write(img.get_file())
     print(f'{name} - After: {img.get(name)}')
-        
+
+def remove_metadata(img, img_path, name):
+    with open(img_path, 'wb') as img_file:
+        img.delete(name)
+        img_file.write(img.get_file())
+        img_file.close()
+    print(f'{name} - After: {img.get(name)}')       
