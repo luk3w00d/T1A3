@@ -1,12 +1,16 @@
 from simple_term_menu import TerminalMenu 
 from functions import view_metadata, edit_metadata, Image
+
 print('Hi, Welcome to the Photo Organising Application !')
 
 def main():
     print('What would you like to do ?')
     menu_entry_index = -1
     while menu_entry_index != 2:
-        options = ['View photo metadata', 'Edit photo metadata', 'Exit']
+        options = [
+            'View photo metadata',
+            'Edit photo metadata', 
+            'Exit']
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
         if menu_entry_index == 0:
@@ -16,7 +20,12 @@ def main():
             print('What would you like to view ?')
             with open(img_path, 'rb') as img_file:
                 img = Image(img_file)
-                view = ['Copywrite Info', 'Date and time Info', 'What device model used', 'Artist', 'Device make', 'Back to main menu']
+                view = ['Copywrite Info', 
+                'Date and time Info', 
+                'What device model used', 
+                'Artist', 
+                'Device make', 
+                'Back to main menu']
                 terminal_menu = TerminalMenu(view)
                 view_index = terminal_menu.show()
                 if view_index == 0:
@@ -57,7 +66,12 @@ def main():
 
                 elif edit_index == 1:
                             print('What would you like to remove ?')
-                            metadata = ['copyright info','Artist', 'make', 'Back to main menu']
+                            metadata = [
+                                'copyright info',
+                                'Artist',
+                                'make',
+                                'Back to main menu'
+                                ]
                             folder_path = 'Image'
                             img_filename = input('Type the exact name of the image including the file type  .jpg, .png ') # input from user
                             img_path = f'{folder_path}/{img_filename}'
