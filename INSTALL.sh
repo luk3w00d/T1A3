@@ -1,4 +1,4 @@
-cp -r ./poa /usr/local/bin
+cp -r ./poa/usr/local/bin
 chmod +x /usr/local/bin/poa/RUN.sh
 ln -s /usr/local/bin/poa/RUN.sh /usr/local/bin/pm
 python3 -m pip install --user - -upgrade pip
