@@ -1,13 +1,24 @@
+import sys
+import os.path
 
 from simple_term_menu import TerminalMenu 
-from functions import view_metadata, edit_metadata, Image, remove_metadata
+import functions
+
 import int_enum
 
 print('Hi, Welcome to the Photo Organizing Application!')
 
 def main():
-    img_filename = input('Type the exact name of the image including the file type  .jpg, .png: ')
-    img_path = f'Image/{img_filename}'
+    img_filename = None
+
+    if len(sys.argv) > 1:
+        img_filename = sys.argv[1]
+
+        if not os.path.exists(img_filename):
+            print("File not found!")
+            img_filename = functions.get_file()
+    else:
+        img_filename = functions.get_file()
 
     print('What would you like to do?')
     menu_entry_index = int_enum.MenuItems.NONE
@@ -26,8 +37,8 @@ def main():
             print("Perfect lets check the photo's metadata")
             print('What would you like to view?')
 
-            with open(img_path, 'rb') as img_file:
-                img = Image(img_file)
+            with open(img_filename, 'rb') as img_file:
+                img = functions.Image(img_file)
                 view = [
                     'Copy-write Info',
                     'Date and time Info',
@@ -41,15 +52,15 @@ def main():
                 metadata_index = terminal_menu.show()
 
                 if metadata_index == int_enum.MetadataMenuItems.COPYRIGHT:
-                    view_metadata(img, img_path, 'copyright')
+                    functions.view_metadata(img, img_filename, 'copyright')
                 elif metadata_index == int_enum.MetadataMenuItems.DATE:
-                    view_metadata(img, img_path, 'datetime')
+                    functions.view_metadata(img, img_filename, 'datetime')
                 elif metadata_index == int_enum.MetadataMenuItems.DEVICE_MODEL:
-                    view_metadata(img, img_path, 'model')
+                    functions.view_metadata(img, img_filename, 'model')
                 elif metadata_index == int_enum.MetadataMenuItems.ARTIST:
-                    view_metadata(img, img_path, 'artist')
+                    functions.view_metadata(img, img_filename, 'artist')
                 elif metadata_index == int_enum.MetadataMenuItems.DEVICE_MAKE:
-                    view_metadata(img, img_path, 'make')             
+                    functions.view_metadata(img, img_filename, 'make')          
 
         elif menu_entry_index == int_enum.MenuItems.UPDATE_METADATA:
             print("Perfect lets update the photo's metadata")
@@ -77,19 +88,19 @@ def main():
 
                     img = None
 
-                    with open(img_path, 'rb') as img_file:
-                        img = Image(img_file)
+                    with open(img_filename, 'rb') as img_file:
+                        img = functions.Image(img_file)
                         img_file.close()
 
                     terminal_menu = TerminalMenu(metadata)
                     metadata_index = terminal_menu.show()
 
                     if metadata_index == int_enum.UpdateMetadata.UPDATE_COPYRIGHT:
-                        edit_metadata(img, img_path, 'copyright')
+                        functions.edit_metadata(img, img_filename, 'copyright')
                     elif metadata_index == int_enum.UpdateMetadata.UPDATE_ARTIST:
-                        edit_metadata(img, img_path, 'artist')
+                        functions.edit_metadata(img, img_filename, 'artist')
                     elif metadata_index == int_enum.UpdateMetadata.UPDATE_MAKE:
-                        edit_metadata(img, img_path, 'make')
+                        functions.edit_metadata(img, img_filename, 'make')
 
                 elif edit_index == int_enum.EditMenuItems.REMOVE:
                     print('What would you like to remove?')
@@ -103,20 +114,20 @@ def main():
 
                     img = None
 
-                    with open(img_path, 'rb') as img_file:
-                        img = Image(img_file)
+                    with open(img_filename, 'rb') as img_file:
+                        img = functions.Image(img_file)
                         img_file.close()
 
                     terminal_menu = TerminalMenu(metadata)
                     metadata_index = terminal_menu.show()
 
                     if metadata_index == int_enum.RemoveMenuItems.REMOVE_COPYRIGHT:
-                        remove_metadata(img, img_path, 'copyright')
+                        functions.remove_metadata(img, img_filename, 'copyright')
                     elif metadata_index == int_enum.RemoveMenuItems.REMOVE_ARTIST:
-                        remove_metadata(img, img_path, 'artist')
+                        functions.remove_metadata(img, img_filename, 'artist')
                     elif metadata_index == int_enum.RemoveMenuItems.REMOVE_MAKE:
-                        remove_metadata(img, img_path, 'make')
+                        functions.remove_metadata(img, img_filename, 'make')
         else:
-            print('See you next time!')  # name of photo to be error handled
+            print('See you next time!')  
 if __name__ == '__main__':
     main()

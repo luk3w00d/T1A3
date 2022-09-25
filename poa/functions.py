@@ -1,4 +1,19 @@
+import os.path
 from exif import Image
+
+def get_file():
+    img_filename = None
+
+    while img_filename is None:
+        img_filename = input('Type the exact path and name of the image including the file type  .jpg, .png: ')
+
+        if os.path.exists(img_filename):
+            break
+
+        print("File not found!")
+        img_filename = None
+
+    return img_filename
 
 def view_metadata(img, img_path, name):
     with open(img_path, 'rb') as img_file:
