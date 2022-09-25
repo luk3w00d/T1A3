@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cp -r poa/usr/local/bin
 chmod +x /usr/local/bin/poa/RUN.sh
 ln -s /usr/local/bin/poa/RUN.sh /usr/local/bin/pm
@@ -13,5 +15,5 @@ pip install simple-term-menu==1.5.0
 pip install toolz==0.12.0
 pip install wcwidth==0.2.5
 python3 -m venv -venv 
-source venv/bin/activate
+source .venv/bin/activate
 echo "Done!"
