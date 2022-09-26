@@ -19,4 +19,4 @@ then
     echo "Done!"
 else 
     echo "ERROR:
-    need to install the latest version of python3"
+    need to install the latest version of python3. You can download the latest version of python3 from https://www.python.org/downloads/  "

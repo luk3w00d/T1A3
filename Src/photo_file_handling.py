@@ -60,10 +60,10 @@ def main():
                 elif metadata_index == int_enum.MetadataMenuItems.ARTIST:
                     functions.view_metadata(img, img_filename, 'artist')
                 elif metadata_index == int_enum.MetadataMenuItems.DEVICE_MAKE:
-                    functions.view_metadata(img, img_filename, 'make')          
+                    functions.view_metadata(img, img_filename, 'make')
             except   LookupError:
-                print('There is no metadata for this photo, You can add some metadata now!')       
-        
+                print('There is no metadata for this photo, You can add some metadata now!')
+
         elif menu_entry_index == int_enum.MenuItems.UPDATE_METADATA:
             print("Perfect lets update the photo's metadata")
             edit_index = int_enum.EditMenuItems.NONE
@@ -135,6 +135,6 @@ def main():
                     elif metadata_index == int_enum.RemoveMenuItems.REMOVE_DATETIME:
                         functions.remove_metadata(img, img_filename, 'datetime')
         else:
-            print(colored('See you next time!', 'grey', 'on_yellow'))  
+            print(colored('See you next time!', 'grey', 'on_yellow'))
 if __name__ == '__main__':
     main()
