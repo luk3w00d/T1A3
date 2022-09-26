@@ -1,18 +1,23 @@
+import sys
 import os.path
 from exif import Image
+from colorama import Fore, Back, Style, init
+from termcolor import colored
 
 def get_file():
     img_filename = None
 
     while img_filename is None:
-        img_filename = input('Type the exact path and name of the image including the file type  .jpg, .png: ')
+        img_filename = input(colored('Type the exact path and name of the image including the file type  .jpg, .png: ', 'green'))
 
         if os.path.exists(img_filename):
             break
-
-        print("File not found!")
+        init(autoreset=True)
+        print(colored('File not found! Please make sure you have entered the info correctly', 'white', 'on_red'))
+        print(colored('Like this example. /Users/ComputerName/Photos/Image_Name.jpg', 'white', 'on_red'))
+        print(colored('Including any Uppercase letters Or to Quit Press Ctrl+C', 'red')) 
         img_filename = None
-
+  
     return img_filename
 
 def view_metadata(img, img_path, name):

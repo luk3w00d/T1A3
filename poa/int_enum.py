@@ -23,8 +23,10 @@ class RemoveMenuItems(IntEnum):
     REMOVE_COPYRIGHT = 0
     REMOVE_ARTIST = 1
     REMOVE_MAKE = 2
+    REMOVE_DATETIME = 3
 
 class UpdateMetadata(IntEnum):
     UPDATE_COPYRIGHT = 0
     UPDATE_ARTIST = 1
     UPDATE_MAKE = 2
+    UPDATE_DATETIME = 3

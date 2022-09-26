@@ -1,12 +1,15 @@
 import sys
 import os.path
 
+from colorama import Fore, Back, Style, init
+from termcolor import colored
+
 from simple_term_menu import TerminalMenu 
 import functions
 
 import int_enum
 
-print('Hi, Welcome to the Photo Organizing Application!')
+print(colored('Hi, Welcome to the Photo Organizing Application!', 'blue', 'on_white'))
 
 def main():
     img_filename = None
@@ -14,13 +17,10 @@ def main():
     if len(sys.argv) > 1:
         img_filename = sys.argv[1]
 
-        if not os.path.exists(img_filename):
-            print("File not found!")
-            img_filename = functions.get_file()
     else:
         img_filename = functions.get_file()
 
-    print('What would you like to do?')
+    print(colored('What would you like to do?', 'green'))
     menu_entry_index = int_enum.MenuItems.NONE
 
     while menu_entry_index != int_enum.MenuItems.EXIT:
@@ -29,7 +29,7 @@ def main():
             'Edit photo metadata',
             'Exit'
         ]
-
+        
         terminal_menu = TerminalMenu(options)
         menu_entry_index = terminal_menu.show()
 
@@ -50,7 +50,7 @@ def main():
 
                 terminal_menu = TerminalMenu(view)
                 metadata_index = terminal_menu.show()
-
+            try:
                 if metadata_index == int_enum.MetadataMenuItems.COPYRIGHT:
                     functions.view_metadata(img, img_filename, 'copyright')
                 elif metadata_index == int_enum.MetadataMenuItems.DATE:
@@ -61,7 +61,9 @@ def main():
                     functions.view_metadata(img, img_filename, 'artist')
                 elif metadata_index == int_enum.MetadataMenuItems.DEVICE_MAKE:
                     functions.view_metadata(img, img_filename, 'make')          
-
+            except   LookupError:
+                print('There is no metadata for this photo, You can add some metadata now!')       
+        
         elif menu_entry_index == int_enum.MenuItems.UPDATE_METADATA:
             print("Perfect lets update the photo's metadata")
             edit_index = int_enum.EditMenuItems.NONE
@@ -83,6 +85,7 @@ def main():
                         'copyright info',
                         'Artist',
                         'Device make',
+                        'Date and time',
                         'Back to main menu'
                     ]
 
@@ -101,6 +104,8 @@ def main():
                         functions.edit_metadata(img, img_filename, 'artist')
                     elif metadata_index == int_enum.UpdateMetadata.UPDATE_MAKE:
                         functions.edit_metadata(img, img_filename, 'make')
+                    elif metadata_index == int_enum.UpdateMetadata.UPDATE_DATETIME:
+                        functions.edit_metadata(img, img_filename, 'datetime')
 
                 elif edit_index == int_enum.EditMenuItems.REMOVE:
                     print('What would you like to remove?')
@@ -127,7 +132,9 @@ def main():
                         functions.remove_metadata(img, img_filename, 'artist')
                     elif metadata_index == int_enum.RemoveMenuItems.REMOVE_MAKE:
                         functions.remove_metadata(img, img_filename, 'make')
+                    elif metadata_index == int_enum.RemoveMenuItems.REMOVE_DATETIME:
+                        functions.remove_metadata(img, img_filename, 'datetime')
         else:
-            print('See you next time!')  
+            print(colored('See you next time!', 'grey', 'on_yellow'))  
 if __name__ == '__main__':
     main()
